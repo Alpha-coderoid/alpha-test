@@ -1,7 +1,9 @@
 <?php
+require_once("db.php");
 
 class customer
 {
+
     public $id;
     public $name;
     public $phone;
@@ -9,7 +11,8 @@ class customer
     function __construct($id)
     {
         if ($id != "") {
-            $con = new mysqli("localhost:3308", "root", "", "Alpha");
+            #$con = new mysqli("localhost:3308", "root", "", "Alpha");
+            global $con;
             $sql = "select * from customers where id=" . $id;
             $r = $con->query($sql);
             $row = $r->fetch_assoc();
@@ -23,7 +26,8 @@ class customer
 
     public static function add($name, $phone, $address)
     {
-        $con = new mysqli("localhost:3308", "root", "", "Alpha");
+        #$con = new mysqli("localhost:3308", "root", "", "Alpha");
+        global $con;
         $name = trim($name, "%^&;!@$#");
 
         $supplier = " insert into customers (name,phone,address) values ('$name','$phone','$address')";
@@ -34,7 +38,8 @@ class customer
     }
     public static function update($id, $name, $phone, $address)
     {
-        $con = new mysqli("localhost:3308", "root", "", "Alpha");
+        #$con = new mysqli("localhost:3308", "root", "", "Alpha");
+        global $con;
         $name = trim($name, "%^&;!@$#");
 
         $supplier = " update customers set name='$name' ,phone = '$phone' ,address='$address' where id=$id";
